@@ -10,8 +10,8 @@
 ---
 ## 🌐 Live Links
 
-* **Frontend (Customer):** [https://cravee-n92s.vercel.app/](https://cravee-n92s.vercel.app/)
-* **Admin Panel:** [https://cravee-two.vercel.app/](https://cravee-two.vercel.app/)
+* **Frontend (Customer):** [https://cravee-two.vercel.app/](https://cravee-two.vercel.app/)
+* **Admin Panel:** [https://cravee-n92s.vercel.app/](https://cravee-n92s.vercel.app/)
 * **Backend API:** [https://cravee.onrender.com](https://cravee.onrender.com)
 * ---
 
