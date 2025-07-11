@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# Build folders
+dist/
+build/
+
+# ENV and secrets
+.env
+frontend/.env
+backend/.env
+admin/.env
+
+# Uploaded files
+uploads/
+
+# Logs
+*.log
+
+# OS & editor settings
+.DS_Store
+.vscode/
+.idea/
+
+ 
