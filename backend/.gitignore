@@ -1,0 +1,21 @@
+# 🔐 Sensitive info
+.env
+
+# 🗑️ Logs
+*.log
+logs/
+
+# 🚫 Dependencies
+node_modules/
+
+# ⚒️ Build folders
+dist/
+build/
+
+# 🖼️ User uploads
+uploads/
+
+# 👩‍💻 Editor stuff
+.vscode/
+.idea/
+*.suo
