@@ -1,3 +1,14 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/shaika-123/Cravee/main/frontend/src/assets/logo.png" alt="Cravee Logo" width="250"/>
+</p>
+
+<h1 align="center">🍽️ Cravee — Food Ordering App</h1>
+
+<p align="center">
+  <i>A full-stack food delivery app built with ❤️ using the MERN stack + Stripe</i>
+</p>
+
+---
 ![Cravee Logo](https://your-image-url.com/logo.png)
 
 # 🍽️ Cravee — Food Ordering App
