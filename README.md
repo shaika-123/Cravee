@@ -59,14 +59,6 @@ For the backend, create a `.env` file:
 MONGO_URL=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 STRIPE_SECRET_KEY=your_stripe_secret
-```
-
-For the frontend:
-
-```env
-VITE_BACKEND_URL=https://cravee.onrender.com
-```
-
 ---
 
 ## 🚀 How to Run Locally
