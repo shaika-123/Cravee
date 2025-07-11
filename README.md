@@ -5,10 +5,6 @@
 <h1 align="center">🍽️ Cravee — Food Ordering App</h1>
 
 
----
-
-# 🍽️ Cravee — Food Ordering App
-
 **Cravee** is a full-stack food ordering web application built with the MERN stack. It features a user-friendly customer frontend, an admin panel for managing food items and orders, and secure online payments using Stripe.
 
 ---
