@@ -81,7 +81,8 @@ $ npm start
 
 ## 🙋‍♀️ Made with 💖 by Afifa Shaik
 
-Let's connect on [LinkedIn](https://www.linkedin.com/in/afifa-shaik/)
+Let's connect on [![LinkedIn](https://img.shields.io/badge/LinkedIn--blue?style=social&logo=linkedin)](https://www.linkedin.com/in/afifa-shaik-470072268/)
+
 Portfolio and more projects coming soon!
 
 ![Stripe](https://img.shields.io/badge/Stripe-Integrated-blueviolet?logo=stripe)
