@@ -1,26 +1,16 @@
-import express from "express"
-import { addFood,listFood,removeFood } from "../controllers/foodController.js"
-import multer from "multer"
+import express from "express";
+import { addFood, listFood, removeFood } from "../controllers/foodController.js";
+import upload from "../middleware/multer.js"; // ⬅️ Cloudinary-based multer config
 
 const foodRouter = express.Router();
 
-// Image Storage Engine
+// Route to add food with image upload to Cloudinary
+foodRouter.post("/add", upload.single("image"), addFood);
 
-const storage = multer.diskStorage({
-    destination:"uploads",
-    filename:(req,file,cb)=>{
-        return cb(null,`${Date.now()}${file.originalname}`)
-    }
-})
+// Route to get all food items
+foodRouter.get("/list", listFood);
 
-const upload = multer({storage:storage})
-
-foodRouter.post("/add",upload.single("image"),addFood)
-foodRouter.get("/list",listFood)
-foodRouter.post("/remove",removeFood);
-
-
-
-
+// Route to remove a food item
+foodRouter.post("/remove", removeFood);
 
 export default foodRouter;
