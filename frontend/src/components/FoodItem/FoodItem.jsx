@@ -6,21 +6,22 @@ import { StoreContext } from "../../context/StoreContext";
 function FoodItem({ id, name, price, description, image }) {
   const { cartItems, addToCart, removeFromCart, url } = useContext(StoreContext);
 
-
+  // Debug log for image URL
+  console.log("Image URL:", url + "/images/" + image);
 
   return (
     <div className="food-item">
-    <div className="food-item-img-container">
-  <img
-    className="food-item-image"
-    src={image} // ✅ Cloudinary full URL is used directly
-    alt={name}
-    onError={(e) => {
-      e.target.onerror = null;
-      e.target.src = "https://via.placeholder.com/300x200.png?text=Image+Not+Found";
-    }}
-  />
-
+      <div className="food-item-img-container">
+        {/* Temporary fallback image in case of broken URL */}
+        <img
+          className="food-item-image"
+          src={url + "/images/" + image}
+          alt={name}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = "https://via.placeholder.com/300x200.png?text=Image+Not+Found";
+          }}
+        />
         {!cartItems[id] ? (
           <img
             className="add"
