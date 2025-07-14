@@ -15,7 +15,7 @@ function FoodItem({ id, name, price, description, image }) {
         {/* Temporary fallback image in case of broken URL */}
         <img
           className="food-item-image"
-          src={url + "/images/" + image}
+          src={image}
           alt={name}
           onError={(e) => {
             e.target.onerror = null;
