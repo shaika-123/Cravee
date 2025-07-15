@@ -52,7 +52,8 @@ const List = ({ url }) => {
         </div>
         {list.map((item, index) => (
           <div key={index} className='list-table-format'>
-            <img src={`${url}/images/${item.image}`} alt={item.name} />
+            {/* ✅ Fixed: Use Cloudinary URL directly instead of local path */}
+            <img src={item.image} alt={item.name} />
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>${item.price}</p>
