@@ -12,10 +12,18 @@ import orderRouter from "./routes/orderRoute.js";
 const app = express();
 const port = process.env.PORT || 4000;
 
+// ✅ Enhanced CORS configuration for production
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://your-frontend-domain.com', 'https://your-admin-domain.com'] 
+    : ['http://localhost:3000', 'http://localhost:5173'],
+  credentials: true
+};
+
 // ✅ Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // ✅ Enables form-data parsing
-app.use(cors());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(cors(corsOptions));
 
 // ✅ Connect to DB
 connectDB();
@@ -26,12 +34,53 @@ app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
-// ✅ Root route
+// ✅ Root route with API info
 app.get("/", (req, res) => {
-  res.send("API Working");
+  res.json({
+    success: true,
+    message: "Cravee API is running!",
+    version: "1.0.0",
+    endpoints: {
+      food: "/api/food",
+      user: "/api/user", 
+      cart: "/api/cart",
+      order: "/api/order"
+    },
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+// ✅ Health check endpoint
+app.get("/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "Server is healthy",
+    timestamp: new Date().toISOString()
+  });
+});
+
+// ✅ Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Global error handler:', err);
+  res.status(500).json({
+    success: false,
+    message: process.env.NODE_ENV === 'production' 
+      ? 'Something went wrong!' 
+      : err.message
+  });
+});
+
+// ✅ 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `Route ${req.originalUrl} not found`
+  });
 });
 
 // ✅ Start server
-app.listen(port, () => {
-  console.log(`✅ Server started on http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`✅ Server started on port ${port}`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔗 Health check: http://localhost:${port}/health`);
 });
