@@ -288,12 +288,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Connect with me:**
 - 💼 [LinkedIn](https://www.linkedin.com/in/afifa-shaik-470072268/)
 - 🐱 [GitHub](https://github.com/shaika-123)
-- 📧 Email: [your.email@example.com]
+- 📧 Email: [afifashaik248@gmail.com]
 
-**Project Links:**
-- 🚀 [Live Application](https://cravee-two.vercel.app/)
-- 📊 [Admin Dashboard](https://cravee-n92s.vercel.app/)
-- 🔌 [Backend API](https://cravee.onrender.com)
+
 
 ---
 
