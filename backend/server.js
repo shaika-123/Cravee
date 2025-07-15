@@ -15,8 +15,8 @@ const port = process.env.PORT || 4000;
 // ✅ Enhanced CORS configuration for production
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-domain.com', 'https://your-admin-domain.com'] 
-    : ['http://localhost:3000', 'http://localhost:5173'],
+    ? ['https://cravee-two.vercel.app', 'https://cravee-n92s.vercel.app'] 
+    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
   credentials: true
 };
 
@@ -34,7 +34,7 @@ app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
-// ✅ Root route with simple API status
+// ✅ Root route - simple API status message
 app.get("/", (req, res) => {
   res.send("API working");
 });
