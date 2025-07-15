@@ -1,38 +1,37 @@
 import express from "express";
 import cors from "cors";
+import 'dotenv/config'; // ✅ Load .env variables first
+
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
-import 'dotenv/config'; // ✅ loads env variables
 
 // App config
 const app = express();
-const port = process.env.PORT || 4000; // ✅ dynamic port
+const port = process.env.PORT || 4000;
 
-// Middleware
+// ✅ Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // ✅ Enables form-data parsing
 app.use(cors());
 
-// DB connection
+// ✅ Connect to DB
 connectDB();
 
-// API Endpoints
+// ✅ API Routes
 app.use("/api/food", foodRouter);
-app.use("/images", express.static("uploads"));
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
-// Root route
+// ✅ Root route
 app.get("/", (req, res) => {
   res.send("API Working");
 });
 
-// Start server
+// ✅ Start server
 app.listen(port, () => {
   console.log(`✅ Server started on http://localhost:${port}`);
 });
-
-
