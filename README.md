@@ -18,9 +18,18 @@
 
 ## 🌐 Live Links
 
+⚠️ **IMPORTANT: Please follow this order when testing the application!**
+
+### 🚀 **Step 1: Wake up the Backend Server**
+* **🔌 Backend API:** [https://cravee.onrender.com](https://cravee.onrender.com)
+  
+  **👆 Click this FIRST!** Wait for "API working" message to appear. This wakes up the server from sleep mode.
+
+### 🚀 **Step 2: Now test the applications**
 * **🛒 Frontend (Customer):** [https://cravee-two.vercel.app/](https://cravee-two.vercel.app/)
 * **⚙️ Admin Panel:** [https://cravee-n92s.vercel.app/](https://cravee-n92s.vercel.app/)
-* **🔌 Backend API:** [https://cravee.onrender.com](https://cravee.onrender.com)
+
+> **💡 Why this order?** Render's free tier puts servers to sleep after 15 minutes of inactivity. If you visit the frontend first, you'll see empty food data because the backend is still waking up. Always click the backend link first to ensure the server is active!
 
 ---
 
