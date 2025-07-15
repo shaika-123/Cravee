@@ -4,10 +4,17 @@ import cloudinary from '../config/cloudinary.js';
 // ✅ Add food item — uploads image to Cloudinary
 const addFood = async (req, res) => {
   try {
+    console.log('=== ADD FOOD REQUEST ===');
     console.log('Request body:', req.body);
     console.log('File info:', req.file);
+    console.log('Environment check - Cloudinary config:', {
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME ? 'Set' : 'Missing',
+      api_key: process.env.CLOUDINARY_API_KEY ? 'Set' : 'Missing',
+      api_secret: process.env.CLOUDINARY_API_SECRET ? 'Set' : 'Missing'
+    });
 
     if (!req.file) {
+      console.log('❌ No file uploaded');
       return res.status(400).json({ 
         success: false, 
         message: "No image file uploaded" 
@@ -16,63 +23,74 @@ const addFood = async (req, res) => {
 
     // Check if file buffer exists
     if (!req.file.buffer) {
+      console.log('❌ Invalid file buffer');
       return res.status(400).json({ 
         success: false, 
         message: "Invalid file buffer" 
       });
     }
 
-    console.log('Uploading to Cloudinary...');
+    console.log('File details:', {
+      originalname: req.file.originalname,
+      mimetype: req.file.mimetype,
+      size: req.file.size,
+      bufferLength: req.file.buffer.length
+    });
 
-    // Upload image buffer using stream with better error handling
-    const streamUpload = (fileBuffer) => {
-      return new Promise((resolve, reject) => {
-        const stream = cloudinary.uploader.upload_stream(
-          { 
-            folder: "cravee",
-            resource_type: "image",
-            format: "jpg" // Convert to jpg for consistency
-          },
-          (error, result) => {
-            if (error) {
-              console.error('Cloudinary upload error:', error);
-              reject(error);
-            } else {
-              console.log('Cloudinary upload success:', result.secure_url);
-              resolve(result);
-            }
-          }
-        );
-        stream.end(fileBuffer);
-      });
-    };
-
-    const result = await streamUpload(req.file.buffer);
-
-    // Validate required fields
+    // Validate required fields FIRST (before uploading to Cloudinary)
     if (!req.body.name || !req.body.description || !req.body.price || !req.body.category) {
       return res.status(400).json({ 
         success: false, 
-        message: "Missing required fields" 
+        message: "Missing required fields: name, description, price, and category are required" 
       });
     }
 
-    const food = new foodModel({
-      name: req.body.name,
-      description: req.body.description,
-      price: Number(req.body.price),
-      category: req.body.category,
-      image: result.secure_url, // Store Cloudinary image URL
-    });
+    // Validate price is a valid number
+    const price = Number(req.body.price);
+    if (isNaN(price) || price <= 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Price must be a valid positive number" 
+      });
+    }
 
-    await food.save();
-    console.log('Food saved successfully:', food);
-    
-    res.json({ 
-      success: true, 
-      message: "Food Added Successfully",
-      data: food 
-    });
+    console.log('Uploading to Cloudinary...');
+
+    try {
+      // Convert buffer to base64 for more reliable upload
+      const base64String = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+      
+      const result = await cloudinary.uploader.upload(base64String, {
+        folder: "cravee",
+        resource_type: "image"
+      });
+      
+      console.log('✅ Cloudinary upload success:', result.secure_url);
+
+      const food = new foodModel({
+        name: req.body.name,
+        description: req.body.description,
+        price: Number(req.body.price),
+        category: req.body.category,
+        image: result.secure_url, // Store Cloudinary image URL
+      });
+
+      await food.save();
+      console.log('Food saved successfully:', food);
+      
+      res.json({ 
+        success: true, 
+        message: "Food Added Successfully",
+        data: food 
+      });
+
+    } catch (cloudinaryError) {
+      console.error('Cloudinary upload error:', cloudinaryError);
+      return res.status(500).json({ 
+        success: false, 
+        message: "Cloudinary upload failed: " + cloudinaryError.message 
+      });
+    }
 
   } catch (error) {
     console.error("Add Food Error:", error);

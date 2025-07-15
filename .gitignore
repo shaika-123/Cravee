@@ -23,3 +23,7 @@ uploads/
 .idea/
 
  
+# .gitignore
+node_modules/
+.env
+uploads/

@@ -19,3 +19,8 @@ uploads/
 .vscode/
 .idea/
 *.suo
+
+# .gitignore
+node_modules/
+.env
+uploads/
