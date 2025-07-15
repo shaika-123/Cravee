@@ -1,29 +1,71 @@
-# Node modules
+# Dependencies
 node_modules/
+*/node_modules/
 
-# Build folders
+# Package lock files (can cause conflicts)
+package-lock.json
+*/package-lock.json
+yarn.lock
+
+# Build outputs
 dist/
 build/
+*/dist/
+*/build/
 
-# ENV and secrets
+# Environment variables
 .env
-frontend/.env
-backend/.env
-admin/.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+frontend/.env*
+backend/.env*
+admin/.env*
 
-# Uploaded files
+# Uploaded files and user content
 uploads/
+backend/uploads/
 
 # Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# OS & editor settings
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor directories and files
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
- 
-# .gitignore
-node_modules/
-.env
-uploads/
+# Temporary files
+*.tmp
+*.temp
+
+# Deployment scripts (keep local only)
+deploy.sh
+start.sh
+
+# Cache directories
+.npm
+.eslintcache
