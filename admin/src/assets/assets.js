@@ -13,4 +13,4 @@ export const assets ={
     upload_area,
     parcel_icon
 }
-export const url = 'https://cravee.onrender.com'
+export const url = import.meta.env.VITE_API_URL || 'https://cravee.onrender.com'

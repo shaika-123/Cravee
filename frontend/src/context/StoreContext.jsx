@@ -5,7 +5,7 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const url = "https://cravee.onrender.com"
+  const url = import.meta.env.VITE_API_URL || "https://cravee.onrender.com"
 
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
@@ -52,7 +52,7 @@ const StoreContextProvider = (props) => {
   const loadCartData = async (token) => {
     try {
       const response = await axios.post(url + "/api/cart/get", {}, { headers: { token } });
-      setCartItems(response.data.cartData);
+      setCartItems(response.data.cartData || {});
     } catch (error) {
       console.error("Error loading cart data:", error);
     }

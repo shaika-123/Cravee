@@ -13,10 +13,17 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // ✅ Enhanced CORS configuration for production
+const prodOrigins = ['https://cravee-two.vercel.app', 'https://cravee-n92s.vercel.app'];
+const localhostRegex = /^http:\/\/localhost:\d+$/;
+
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://cravee-two.vercel.app', 'https://cravee-n92s.vercel.app'] 
-    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
+  origin: (origin, callback) => {
+    if (!origin || prodOrigins.includes(origin) || localhostRegex.test(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 };
 
